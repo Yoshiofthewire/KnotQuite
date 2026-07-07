@@ -1,4 +1,4 @@
-# TroughLine - A Clone of NYT Connections for Desktop and Mobile
+# KnotQuite - A Clone of NYT Connections for Desktop and Mobile
 
 ## Original Requirements
 

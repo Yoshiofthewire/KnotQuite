@@ -23,7 +23,7 @@ const TARGET = parseInt(process.argv[2] || '1000', 10);
 const OUT_FILE = path.resolve(__dirname, '..', 'src', 'data', 'wiki_groups.json');
 
 const API = 'https://en.wikipedia.org/w/api.php';
-const UA = 'TroughLinePuzzleBot/1.0 (puzzle game data; contact: none)';
+const UA = 'KnotQuitePuzzleBot/1.0 (puzzle game data; contact: none)';
 
 const RANDOM_BATCH = 50;
 const CM_LIMIT = 100;

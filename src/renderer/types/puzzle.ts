@@ -17,6 +17,7 @@ export interface Puzzle {
   theme: string;
   groups: [Group, Group, Group, Group];
   redHerring: RedHerring;
+  type?: 'daily' | 'random';
 }
 
 export type GameStatus = 'playing' | 'won' | 'lost';

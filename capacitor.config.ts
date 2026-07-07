@@ -1,8 +1,8 @@
 import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'com.troughline.app',
-  appName: 'TroughLine',
+  appId: 'com.urlxl.knotquite',
+  appName: 'KnotQuite',
   webDir: 'dist/renderer'
 };
 

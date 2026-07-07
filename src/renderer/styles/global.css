@@ -314,6 +314,25 @@ body {
   display: flex;
   justify-content: center;
   gap: 12px;
+  flex-wrap: wrap;
+}
+
+.modal__btn--share {
+  background: var(--blue);
+  border-color: #5a7fa3;
+  color: var(--text);
+  font-weight: 700;
+}
+
+.modal__btn--share:hover:not(:disabled) {
+  background: #9db8e0;
+}
+
+.modal__btn--new-game {
+  background: var(--green);
+  border-color: #7a9944;
+  color: #ffffff;
+  font-weight: 700;
 }
 
 /* ── Help Colors ─────────────────────────── */
@@ -511,8 +530,69 @@ body {
   .header__title { font-size: 22px; }
   .word-tile { padding: 14px 2px; font-size: 12px; min-height: 48px; }
   .controls__btn { padding: 8px 14px; font-size: 13px; }
+
+  .modal {
+    padding: 24px 20px;
+    max-width: 95%;
+  }
+
+  .modal__title {
+    font-size: 20px;
+  }
+
+  .modal__actions {
+    gap: 8px;
+  }
+
+  .modal__btn--share,
+  .modal__btn--new-game {
+    flex: 1;
+    min-width: 120px;
+    padding: 12px 16px;
+    font-size: 14px;
+  }
+
+  .modal__share-preview {
+    gap: 6px;
+  }
+
+  .modal__share-cell {
+    width: 32px;
+    height: 32px;
+  }
+
+  .modal__reveal {
+    gap: 8px;
+  }
+
+  .solved-group {
+    padding: 12px 14px;
+  }
+
+  .solved-group__name {
+    font-size: 15px;
+  }
+
+  .solved-group__words {
+    font-size: 13px;
+  }
 }
 
 @media (max-width: 360px) {
   .word-tile { font-size: 10px; padding: 10px 2px; min-height: 42px; }
+
+  .modal {
+    padding: 20px 16px;
+  }
+
+  .modal__btn--share,
+  .modal__btn--new-game {
+    padding: 10px 14px;
+    font-size: 13px;
+  }
+
+  .modal__share-cell {
+    width: 28px;
+    height: 28px;
+  }
 }

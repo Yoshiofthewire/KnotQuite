@@ -26,7 +26,7 @@ function buildShareText(groups: Group[], guessHistory: string[][]): string {
       })
       .join('');
   });
-  return `TroughLine\n${lines.join('\n')}`;
+  return `KnotQuite\n${lines.join('\n')}`;
 }
 
 export const GameOverModal: React.FC<GameOverModalProps> = ({
@@ -47,21 +47,23 @@ export const GameOverModal: React.FC<GameOverModalProps> = ({
   };
 
   return (
-    <div className="modal-overlay">
-      <div className="modal">
+    <div className="modal-overlay" onClick={onNewGame}>
+      <div className="modal" onClick={(e) => e.stopPropagation()}>
         <h2 className="modal__title">
           {status === 'won' ? 'Congratulations!' : 'Better luck next time'}
         </h2>
 
-        {status === 'lost' && unsolvedGroups.length > 0 && (
-          <div className="modal__reveal">
-            {unsolvedGroups
-              .sort((a, b) => a.difficulty - b.difficulty)
-              .map((g) => (
+        <div className="modal__reveal">
+          {status === 'won'
+            ? allGroupsSorted.map((g) => (
                 <SolvedGroup key={g.name} group={g} />
-              ))}
-          </div>
-        )}
+              ))
+            : unsolvedGroups
+                .sort((a, b) => a.difficulty - b.difficulty)
+                .map((g) => (
+                  <SolvedGroup key={g.name} group={g} />
+                ))}
+        </div>
 
         <div className="modal__share-preview">
           {guessHistory.map((guess, i) => (
@@ -85,10 +87,10 @@ export const GameOverModal: React.FC<GameOverModalProps> = ({
         </div>
 
         <div className="modal__actions">
-          <button className="controls__btn" onClick={handleShare}>
+          <button className="controls__btn modal__btn--share" onClick={handleShare}>
             Share
           </button>
-          <button className="controls__btn controls__btn--submit" onClick={onNewGame}>
+          <button className="controls__btn controls__btn--submit modal__btn--new-game" onClick={onNewGame}>
             New Game
           </button>
         </div>

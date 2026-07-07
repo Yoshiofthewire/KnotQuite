@@ -1,4 +1,4 @@
-# TroughLine
+# KnotQuite
 
 A NYT Connections clone built with Electron and React. Group 16 words into 4 categories of 4 — watch out for red herrings!
 

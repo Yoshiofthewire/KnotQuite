@@ -1,0 +1,7 @@
+{
+  "host": "localhost",
+  "port": "1234",
+  "model": null,
+  "temperature": 0.7,
+  "_comment": "LM Studio configuration. Override with env vars: LM_STUDIO_HOST, LM_STUDIO_PORT, LM_STUDIO_MODEL, LM_STUDIO_TEMPERATURE. If model is null, the first loaded model in LM Studio will be auto-detected."
+}

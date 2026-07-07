@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">TroughLine</string>
-    <string name="title_activity_main">TroughLine</string>
-    <string name="package_name">com.troughline.app</string>
-    <string name="custom_url_scheme">com.troughline.app</string>
+    <string name="app_name">KnotQuite</string>
+    <string name="title_activity_main">KnotQuite</string>
+    <string name="package_name">com.urlxl.knotquite</string>
+    <string name="custom_url_scheme">com.urlxl.knotquite</string>
 </resources>

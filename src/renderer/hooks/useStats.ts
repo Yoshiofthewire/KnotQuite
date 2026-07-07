@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
 
-const STATS_KEY = 'troughline_stats';
+const STATS_KEY = 'knotquite_stats';
 
 export interface Stats {
   gamesPlayed: number;

@@ -1,14 +1,28 @@
-# Adding Puzzles to TroughLine
+# KnotQuite Puzzle Design & Generation
 
-This document contains everything needed to generate new puzzles for TroughLine without reading the rest of the codebase. Puzzles are stored in a single JSON file and require no code changes to add.
+This document describes KnotQuite's puzzle quality standards and the generation pipeline.
 
-## File Location
+## Overview
 
+Puzzles are generated via an automated pipeline that ensures high semantic quality and eliminates common bad patterns:
+- **Bad pattern 1**: Obscure proper nouns (people's names) as category members
+- **Bad pattern 2**: Wikipedia-list-style categories ("People from X", "Deaths in Y")
+- **Bad pattern 3**: Color-shade names grouped together
+
+The pipeline consists of:
+1. **Authoring** — LM-assisted generation with the rules below
+2. **Validation** — Mechanical checks (structure + obscurity + colors + corpus hygiene)
+3. **Curation** — Manual spot-check before shipping
+
+## Puzzle Repository
+
+Puzzles live in:
 ```
-src/data/puzzles.json
+src/data/puzzles.json       # Bundled into app, served to players
+src/data/dailyOrder.json    # Deterministic daily rotation (generated)
 ```
 
-This file contains a JSON array of puzzle objects. To add puzzles, append new objects to this array.
+Daily puzzles are selected via epoch-based indexing: consistent across all installs, UTC-based day boundary, stable under pool growth.
 
 ## Schema
 

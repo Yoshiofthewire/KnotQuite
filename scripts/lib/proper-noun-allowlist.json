@@ -1,0 +1,21 @@
+{
+  "comment": "Hand-curated list of globally-famous proper nouns that are acceptable in puzzle categories. Kept deliberately small so it doesn't silently balloon back into obscurity. Add sparingly.",
+  "names": [
+    "EINSTEIN", "NEWTON", "DARWIN", "SHAKESPEARE", "BEETHOVEN", "MOZART", "VAN GOGH", "MICHELANGELO", "LEONARDO", "PICASSO",
+    "REMBRANDT", "RAPHAEL", "BOTTICELLI", "CARAVAGGIO", "DALÍ", "WARHOL", "JACKSON POLLOCK", "MONET", "RENOIR", "CÉZANNE",
+    "MATISSE", "KANDINSKY", "MONDRIAN", "ROTHKO", "HOPPER", "GRANT WOOD", "NORMAN ROCKWELL", "ANDY WARHOL", "BANKSY", "KOONS",
+    "HOCKNEY", "BASQUIAT", "FRIDA KAHLO", "GEORGIA O'KEEFFE", "MAGDALENA ABAKANOWICZ", "CRISTINA IGLESIAS", "CERITH WYN EVANS", "NTSIKA", "JUDY CHICAGO", "BARBARA HEPWORTH"
+  ],
+  "brands": [
+    "APPLE", "MICROSOFT", "GOOGLE", "AMAZON", "FACEBOOK", "TESLA", "COCA-COLA", "PEPSI", "NIKE", "ADIDAS",
+    "LEGO", "DISNEY", "PIXAR", "MARVEL", "NINTENDO", "PLAYSTATION", "XBOX", "UBER", "AIRBNB", "NETFLIX"
+  ],
+  "places": [
+    "PARIS", "LONDON", "NEW YORK", "TOKYO", "SYDNEY", "ROME", "BERLIN", "MADRID", "MOSCOW", "BEIJING",
+    "CAIRO", "MUMBAI", "SHANGHAI", "HONG KONG", "SINGAPORE", "DUBAI", "BANGKOK", "ISTANBUL", "AMSTERDAM", "VENICE",
+    "EGYPT", "FRANCE", "GERMANY", "ITALY", "JAPAN", "BRAZIL", "AUSTRALIA", "CANADA", "INDIA", "CHINA"
+  ],
+  "planets_celestial": [
+    "MERCURY", "VENUS", "EARTH", "MARS", "JUPITER", "SATURN", "URANUS", "NEPTUNE", "PLUTO", "MOON", "SUN"
+  ]
+}

@@ -1,11 +1,12 @@
 import { useState, useCallback } from 'react';
 import { Puzzle } from '../types/puzzle';
 import puzzlesData from '../../data/puzzles.json';
+import dailyOrderData from '../../data/dailyOrder.json';
 
 export type GameMode = 'daily' | 'random';
 
-const PLAYED_KEY = 'troughline_played';
-const DAILY_KEY = 'troughline_daily';
+const PLAYED_KEY = 'knotquite_played';
+const DAILY_KEY = 'knotquite_daily';
 
 interface DailyState {
   date: string;
@@ -13,9 +14,13 @@ interface DailyState {
   won: boolean;
 }
 
+// Get today's date in UTC (not local timezone) for daily consistency across time zones
 function getTodayString(): string {
   const d = new Date();
-  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+  const year = d.getUTCFullYear();
+  const month = String(d.getUTCMonth() + 1).padStart(2, '0');
+  const day = String(d.getUTCDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
 }
 
 function getDailyState(): DailyState | null {
@@ -67,28 +72,42 @@ function shuffleArray<T>(arr: T[]): T[] {
   return shuffled;
 }
 
-// Deterministic hash for daily puzzle selection
-function dateHash(dateStr: string): number {
-  let hash = 0;
-  for (let i = 0; i < dateStr.length; i++) {
-    hash = (hash * 31 + dateStr.charCodeAt(i)) | 0;
-  }
-  return Math.abs(hash);
-}
-
+// Get daily puzzle using epoch-based indexing into dailyOrder
+// Epoch: 2025-01-01. Guarantees:
+// - No repeats until full cycle
+// - Stable across app updates (append new IDs to tail)
+// - UTC-based so consistent across timezones
 function getDailyPuzzle(): Puzzle {
   const allPuzzles = puzzlesData as Puzzle[];
-  const today = getTodayString();
-  const index = dateHash(today) % allPuzzles.length;
-  return allPuzzles[index];
+  const order = (dailyOrderData as number[]) || [];
+
+  if (order.length === 0) {
+    // Fallback if dailyOrder not yet built: use first puzzle
+    return allPuzzles[0] || ({} as Puzzle);
+  }
+
+  // Compute days since epoch (2025-01-01 00:00 UTC)
+  const epochDate = new Date('2025-01-01T00:00:00Z');
+  const today = new Date();
+  today.setUTCHours(0, 0, 0, 0);
+  const daysSinceEpoch = Math.floor((today.getTime() - epochDate.getTime()) / 86400000);
+
+  // Index into daily order with wraparound
+  const orderIndex = daysSinceEpoch % order.length;
+  const puzzleId = order[orderIndex];
+
+  // Look up puzzle by ID
+  const puzzle = allPuzzles.find(p => p.id === puzzleId);
+  return puzzle || allPuzzles[0] || ({} as Puzzle);
 }
 
 function pickRandomPuzzle(): Puzzle {
   const allPuzzles = puzzlesData as Puzzle[];
+  const randomPuzzles = allPuzzles.filter((p) => (p as any).type !== 'daily');
   const played = getPlayedIds();
-  const unplayed = allPuzzles.filter((p) => !played.includes(p.id));
-  const pool = unplayed.length > 0 ? unplayed : allPuzzles;
-  if (unplayed.length === 0) {
+  const unplayed = randomPuzzles.filter((p) => !played.includes(p.id));
+  const pool = unplayed.length > 0 ? unplayed : randomPuzzles;
+  if (unplayed.length === 0 && randomPuzzles.length > 0) {
     localStorage.removeItem(PLAYED_KEY);
   }
   return pool[Math.floor(Math.random() * pool.length)];

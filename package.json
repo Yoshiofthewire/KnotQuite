@@ -1,5 +1,5 @@
 {
-  "name": "troughline",
+  "name": "knotquite",
   "version": "1.0.0",
   "description": "A NYT Connections clone for desktop and mobile",
   "main": "dist/main/main.js",
@@ -9,7 +9,11 @@
     "build:main": "tsc -p tsconfig.main.json",
     "build": "npm run build:renderer && npm run build:main",
     "start": "electron .",
-    "package": "npm run build && electron-builder"
+    "package": "npm run build && electron-builder",
+    "generate:puzzles": "node scripts/generate_puzzles_llm.js",
+    "generate:puzzles:3months": "node scripts/generate_puzzles_three_months.js",
+    "validate:puzzles": "node scripts/validate_puzzles.js src/data/puzzles.json",
+    "build:daily-order": "node scripts/build_daily_order.js"
   },
   "dependencies": {
     "@capacitor/android": "^8.3.1",
@@ -30,8 +34,8 @@
     "wait-on": "^8.0.1"
   },
   "build": {
-    "appId": "com.troughline.app",
-    "productName": "TroughLine",
+    "appId": "com.urlxl.knotquite",
+    "productName": "KnotQuite",
     "files": [
       "dist/**/*",
       "package.json"

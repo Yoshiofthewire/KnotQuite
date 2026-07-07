@@ -3,11 +3,16 @@ import { GameState, GameStatus, Group, Puzzle } from '../types/puzzle';
 
 const MAX_MISTAKES = 4;
 
+export interface GuessResult {
+  status: 'correct' | 'wrong' | null;
+  distance?: number;
+}
+
 export interface GameActions {
   selectWord: (word: string) => void;
   deselectWord: (word: string) => void;
   deselectAll: () => void;
-  submitGuess: () => 'correct' | 'one-away' | 'wrong' | null;
+  submitGuess: () => GuessResult;
   resetGame: (puzzle: Puzzle, shuffledWords: string[]) => void;
 }
 
@@ -46,8 +51,8 @@ export function useGameState(
     setState((prev) => ({ ...prev, selectedWords: [] }));
   }, []);
 
-  const submitGuess = useCallback((): 'correct' | 'one-away' | 'wrong' | null => {
-    let result: 'correct' | 'one-away' | 'wrong' | null = null;
+  const submitGuess = useCallback((): GuessResult => {
+    let result: GuessResult = { status: null };
 
     setState((prev) => {
       if (prev.status !== 'playing') return prev;
@@ -64,7 +69,7 @@ export function useGameState(
         const newSolved = [...prev.solvedGroups, matchingGroup];
         const newStatus: GameStatus =
           newSolved.length === 4 ? 'won' : 'playing';
-        result = 'correct';
+        result = { status: 'correct' };
         return {
           ...prev,
           solvedGroups: newSolved,
@@ -74,16 +79,18 @@ export function useGameState(
         };
       }
 
-      // Check for "one away"
-      const isOneAway = prev.puzzle.groups.some(
-        (g) =>
-          !prev.solvedGroups.includes(g) &&
-          g.words.filter((w) => selected.includes(w)).length === 3
-      );
+      // Find closest group to determine distance
+      let closestDistance = 0;
+      prev.puzzle.groups.forEach((g) => {
+        if (!prev.solvedGroups.includes(g)) {
+          const matches = g.words.filter((w) => selected.includes(w)).length;
+          closestDistance = Math.max(closestDistance, matches);
+        }
+      });
 
       const newMistakes = prev.mistakesRemaining - 1;
       const newStatus: GameStatus = newMistakes <= 0 ? 'lost' : 'playing';
-      result = isOneAway ? 'one-away' : 'wrong';
+      result = { status: 'wrong', distance: 4 - closestDistance };
 
       return {
         ...prev,

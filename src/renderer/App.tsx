@@ -70,13 +70,21 @@ const App: React.FC = () => {
 
   const handleSubmit = useCallback(() => {
     const result = actions.submitGuess();
-    if (result === 'one-away') {
-      showToast('One away...');
+    console.log('Submit result:', result);
+
+    if (result.status === 'wrong') {
       setShaking(true);
       setTimeout(() => setShaking(false), 400);
-    } else if (result === 'wrong') {
-      setShaking(true);
-      setTimeout(() => setShaking(false), 400);
+
+      if (result.distance !== undefined) {
+        if (result.distance === 1) {
+          showToast('One away...');
+        } else {
+          showToast('Not quite...');
+        }
+      }
+    } else if (result.status === 'correct') {
+      console.log('Correct guess!');
     }
   }, [actions, showToast]);
 
@@ -106,7 +114,7 @@ const App: React.FC = () => {
   return (
     <>
       <header className="header">
-        <h1 className="header__title">TroughLine</h1>
+        <h1 className="header__title">KnotQuite</h1>
         <div className="header__actions">
           <button className="header__btn" onClick={() => setShowStats(true)} title="Statistics">
             &#x1F4CA;
